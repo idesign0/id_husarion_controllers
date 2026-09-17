@@ -1,4 +1,4 @@
-<library path="low_pass_filter">
+<library path="husarion_low_pass_filter">
   <class name="low_pass_filter/LowPassFilter" type="low_pass_filter::LowPassFilter"
     base_class_type="controller_interface::ChainableControllerInterface">
     <description>

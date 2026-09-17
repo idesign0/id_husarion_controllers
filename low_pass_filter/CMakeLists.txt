@@ -24,6 +24,13 @@ generate_parameter_library(low_pass_filter_parameters
                            src/low_pass_filter_parameters.yaml)
 
 add_library(low_pass_filter SHARED src/low_pass_filter.cpp)
+# The upstream ros2_control `control_toolbox` package also builds a library named
+# `low_pass_filter` (its control_filters/low_pass_filter). In a merge-install
+# workspace both land in the same lib/ dir with the same file name. On Linux one
+# silently clobbers the other; on macOS the linker refuses ("can't link a dylib
+# with itself" — same install_name) because this package links control_toolbox.
+# Give this package's library a distinct file name to avoid the collision.
+set_target_properties(low_pass_filter PROPERTIES OUTPUT_NAME husarion_low_pass_filter)
 
 target_include_directories(
   low_pass_filter PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
